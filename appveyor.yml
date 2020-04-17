@@ -1,0 +1,32 @@
+# vi: ts=2 sw=2 sts=2 expandtab
+
+skip_tags: true
+
+os: Visual Studio 2017
+
+# Shallow clone of repo
+clone_depth: 2
+
+platform:
+  - x86
+  - x64
+
+environment:
+  matrix:
+  - TOXENV: py27
+  - TOXENV: py35
+  - TOXENV: py36
+  - TOXENV: py37
+  - TOXENV: py38
+
+before_build:
+  - nuget restore
+  - nuget Install-Package Beckhoff.TwinCAT.Ads -Version 4.4.4
+
+build: off
+
+install:
+  - pip install tox
+
+test_script:
+  - tox
